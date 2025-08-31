@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Symbiotic Digital City 2070 - Futuristic Design System
+   Cyberpunk aesthetic with neon accents and smooth animations
+   All colors are HSL for consistent theming
+*/
+
+@layer base {
+  :root {
+    /* Core Background System */
+    --background: 220 15% 8%;
+    --foreground: 210 40% 98%;
+    
+    /* Card System */
+    --card: 220 15% 10%;
+    --card-foreground: 210 40% 98%;
+    --card-glow: 220 15% 12%;
+    
+    /* Interactive Elements */
+    --popover: 220 15% 12%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* Primary Brand - Electric Blue */
+    --primary: 200 100% 60%;
+    --primary-foreground: 220 15% 8%;
+    --primary-glow: 200 100% 70%;
+    --primary-dark: 200 100% 40%;
+    
+    /* Secondary - Neon Purple */
+    --secondary: 270 80% 60%;
+    --secondary-foreground: 210 40% 98%;
+    --secondary-glow: 270 80% 70%;
+    
+    /* Accent - Neon Green */
+    --accent: 140 100% 60%;
+    --accent-foreground: 220 15% 8%;
+    --accent-glow: 140 100% 70%;
+    
+    /* Status Colors */
+    --success: 120 100% 50%;
+    --warning: 45 100% 60%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Neutral System */
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 20% 70%;
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 200 100% 60%;
+    
+    /* Glass/Frosted Effects */
+    --glass-bg: 220 15% 10%;
+    --glass-border: 220 15% 25%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(200 100% 60%), hsl(270 80% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(270 80% 60%), hsl(140 100% 60%));
+    --gradient-surface: linear-gradient(135deg, hsl(220 15% 12%), hsl(220 15% 8%));
+    --gradient-glow: linear-gradient(135deg, hsl(200 100% 60% / 0.2), hsl(270 80% 60% / 0.2));
+    
+    /* Shadows & Glows */
+    --shadow-glow: 0 0 20px hsl(200 100% 60% / 0.3);
+    --shadow-accent: 0 0 20px hsl(140 100% 60% / 0.3);
+    --shadow-secondary: 0 0 20px hsl(270 80% 60% / 0.3);
+    --shadow-elevation: 0 10px 30px hsl(220 15% 5% / 0.5);
+    
+    /* Animation Tokens */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Layout */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-sm: 0.5rem;
+    
+    /* Typography */
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  
+  /* Light mode (minimal for cyberpunk theme) */
+  .light {
+    --background: 210 30% 98%;
+    --foreground: 220 15% 8%;
+    --card: 210 30% 95%;
+    --muted: 210 30% 90%;
+    --border: 210 30% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(200 100% 60% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(270 80% 60% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, hsl(140 100% 60% / 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-glow));
+  }
+}
+
+@layer components {
+  /* Glass Card Effect */
+  .glass-card {
+    background: hsl(var(--glass-bg) / 0.8);
+    border: 1px solid hsl(var(--glass-border) / 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-elevation);
+  }
+  
+  /* Neon Glow Effects */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-accent {
+    box-shadow: var(--shadow-accent);
+  }
+  
+  .glow-secondary {
+    box-shadow: var(--shadow-secondary);
+  }
+  
+  /* Gradient Text */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-secondary {
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Animated Backgrounds */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .bg-gradient-surface {
+    background: var(--gradient-surface);
+  }
+  
+  /* Pulse Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: var(--shadow-glow);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 30px hsl(200 100% 60% / 0.5);
+    }
+  }
+  
+  /* Floating Animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Cyberpunk Border Animation */
+  .border-animated {
+    position: relative;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+  
+  .border-animated::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    background: linear-gradient(45deg, 
+      hsl(var(--primary)), 
+      hsl(var(--secondary)), 
+      hsl(var(--accent)), 
+      hsl(var(--primary))
+    );
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    animation: border-rotate 4s linear infinite;
+    opacity: 0.7;
+  }
+  
+  @keyframes border-rotate {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
