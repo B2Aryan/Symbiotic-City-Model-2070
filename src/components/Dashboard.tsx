@@ -465,7 +465,11 @@ export const Dashboard = () => {
                   <Globe className="w-6 h-6" />
                   <span className="text-sm">Global Teleport</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex-col gap-2">
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                  onClick={() => navigate('/ai-settings')}
+                >
                   <Bot className="w-6 h-6" />
                   <span className="text-sm">AI Settings</span>
                 </Button>
