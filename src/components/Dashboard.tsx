@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Bot, Settings, Map, Users, Zap, Globe } from 'lucide-react';
+import { Bot, Settings, Map, Users, Zap, Globe, Calendar, MessageCircle, Sparkles } from 'lucide-react';
 import { VitalsWidget } from './widgets/VitalsWidget';
 import { EnvironmentWidget } from './widgets/EnvironmentWidget';
 import { AITwinPanel } from './widgets/AITwinPanel';
@@ -10,19 +10,24 @@ import { Button } from './ui/button';
 import { useDigitalTwin } from '@/stores/useDigitalTwin';
 import { useCityState } from '@/stores/useCityState';
 import { DigitalAvatar } from './DigitalAvatar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { SmartPodBookingModal } from './SmartPodBookingModal';
 import { GlobalTeleportModal } from './GlobalTeleportModal';
 import { NotificationSystem, useNotifications } from './NotificationSystem';
+import { CyberCard } from './CyberCard';
 import { useState } from 'react';
 
 export const Dashboard = () => {
   const { twin, vitals, recommendations } = useDigitalTwin();
   const { setCurrentDistrict, setPlayerPosition, bookMobility } = useCityState();
   const navigate = useNavigate();
+  const location = useLocation();
   const { notifications, removeNotification, showWelcomeMessage, showArrivalMessage, showBookingConfirmation } = useNotifications();
   const [isPodBookingOpen, setIsPodBookingOpen] = useState(false);
   const [isTeleportModalOpen, setIsTeleportModalOpen] = useState(false);
+  
+  // Check if we're on the social route
+  const isSocialRoute = location.pathname === '/social';
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -97,17 +102,30 @@ export const Dashboard = () => {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gradient-primary">
-                    Symbiotic Digital City
+                    {isSocialRoute ? 'Social Hub' : 'Symbiotic Digital City'}
                   </h1>
-                  <p className="text-sm text-muted-foreground">2070 • New Singapore</p>
+                  <p className="text-sm text-muted-foreground">
+                    {isSocialRoute ? 'Connect & Collaborate' : '2070 • New Singapore'}
+                  </p>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
+              {isSocialRoute && (
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/')}
+                  className="mr-2"
+                >
+                  ← Back to Dashboard
+                </Button>
+              )}
+              
               <div 
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border/50 cursor-pointer hover:bg-accent/10 transition-colors"
-                onClick={() => window.open('https://preview--genz-digital-vibe.lovable.app/', '_blank')}
+                onClick={() => window.open('https://preview--genz-digital-vibe.lovable.app/', '_self')}
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-secondary flex items-center justify-center text-sm">
                   🤖
@@ -121,7 +139,7 @@ export const Dashboard = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_blank')}
+                onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_self')}
               >
                 <Map className="w-4 h-4 mr-2" />
                 City View
@@ -143,29 +161,119 @@ export const Dashboard = () => {
         className="container mx-auto px-6 py-8"
       >
         {/* Hero Section with Digital Avatar */}
-        <motion.div variants={itemVariants} className="mb-12">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12">
-            {/* Background Effects */}
-            <div className="absolute inset-0 bg-gradient-glow opacity-30" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl" />
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Left Side - Text Content */}
-              <div className="text-center lg:text-left space-y-6">
+        {!isSocialRoute ? (
+          <motion.div variants={itemVariants} className="mb-12">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12">
+              {/* Background Effects */}
+              <div className="absolute inset-0 bg-gradient-glow opacity-30" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl" />
+              
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                {/* Left Side - Text Content */}
+                <div className="text-center lg:text-left space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <h2 className="text-4xl lg:text-5xl font-bold text-gradient-primary mb-4">
+                      Welcome to Your
+                      <br />
+                      <span className="text-gradient-secondary">Digital Life</span>
+                    </h2>
+                    <p className="text-lg text-muted-foreground max-w-xl">
+                      Your AI twin is monitoring your wellness, optimizing your environment, and connecting you 
+                      with the symbiotic city ecosystem. Everything is designed to enhance your human experience.
+                    </p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex flex-wrap gap-4 justify-center lg:justify-start"
+                  >
+                    <Button 
+                      size="lg" 
+                      className="glow-primary"
+                      onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_self')}
+                    >
+                      <Map className="w-5 h-5 mr-2" />
+                      Explore City
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      onClick={handleSocialHubClick}
+                    >
+                      <Users className="w-5 h-5 mr-2" />
+                      Social Hub
+                    </Button>
+                  </motion.div>
+
+                  {/* Quick Stats */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="grid grid-cols-3 gap-4 pt-6"
+                  >
+                    <div className="text-center">
+                      <div className="text-2xl font-mono font-bold text-primary">
+                        {vitals ? Math.round(vitals.heartRate) : '--'}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Heart Rate</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-mono font-bold text-accent">
+                        {recommendations.length}
+                      </div>
+                      <div className="text-xs text-muted-foreground">AI Insights</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-mono font-bold text-secondary">
+                        4
+                      </div>
+                      <div className="text-xs text-muted-foreground">Districts</div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Right Side - Digital Avatar */}
+                <div className="flex justify-center lg:justify-end">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                  >
+                    <DigitalAvatar />
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          /* Social Hub Hero Section */
+          <motion.div variants={itemVariants} className="mb-12">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12">
+              {/* Background Effects */}
+              <div className="absolute inset-0 bg-gradient-glow opacity-30" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-accent opacity-10 rounded-full blur-3xl" />
+              
+              <div className="relative z-10 text-center space-y-6">
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h2 className="text-4xl lg:text-5xl font-bold text-gradient-primary mb-4">
-                    Welcome to Your
-                    <br />
-                    <span className="text-gradient-secondary">Digital Life</span>
+                  <h2 className="text-4xl lg:text-5xl font-bold text-gradient-secondary mb-4">
+                    Social Hub
                   </h2>
-                  <p className="text-lg text-muted-foreground max-w-xl">
-                    Your AI twin is monitoring your wellness, optimizing your environment, and connecting you 
-                    with the symbiotic city ecosystem. Everything is designed to enhance your human experience.
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Connect with your digital community, join virtual events, and collaborate with AI-enhanced 
+                    citizens across the symbiotic city ecosystem.
                   </p>
                 </motion.div>
 
@@ -173,90 +281,132 @@ export const Dashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="flex flex-wrap gap-4 justify-center lg:justify-start"
+                  className="flex flex-wrap gap-4 justify-center"
                 >
                   <Button 
                     size="lg" 
-                    className="glow-primary"
-                    onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_blank')}
+                    className="glow-secondary"
                   >
-                    <Map className="w-5 h-5 mr-2" />
-                    Explore City
+                    <Users className="w-5 h-5 mr-2" />
+                    Join Community
                   </Button>
                   <Button 
                     variant="outline" 
                     size="lg"
-                    onClick={handleSocialHubClick}
                   >
-                    <Users className="w-5 h-5 mr-2" />
-                    Social Hub
+                    <Calendar className="w-5 h-5 mr-2" />
+                    View Events
                   </Button>
-                </motion.div>
-
-                {/* Quick Stats */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="grid grid-cols-3 gap-4 pt-6"
-                >
-                  <div className="text-center">
-                    <div className="text-2xl font-mono font-bold text-primary">
-                      {vitals ? Math.round(vitals.heartRate) : '--'}
-                    </div>
-                    <div className="text-xs text-muted-foreground">Heart Rate</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-mono font-bold text-accent">
-                      {recommendations.length}
-                    </div>
-                    <div className="text-xs text-muted-foreground">AI Insights</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-mono font-bold text-secondary">
-                      4
-                    </div>
-                    <div className="text-xs text-muted-foreground">Districts</div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Right Side - Digital Avatar */}
-              <div className="flex justify-center lg:justify-end">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                >
-                  <DigitalAvatar />
                 </motion.div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column - Main Widgets */}
-          <div className="lg:col-span-8 space-y-6">
-            {/* Top Row - Vitals & Environment */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <VitalsWidget />
-              <EnvironmentWidget />
-            </motion.div>
+          {!isSocialRoute ? (
+            <>
+              {/* Left Column - Main Widgets */}
+              <div className="lg:col-span-8 space-y-6">
+                {/* Top Row - Vitals & Environment */}
+                <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <VitalsWidget />
+                  <EnvironmentWidget />
+                </motion.div>
 
-            {/* Bottom Row - Mobility & Social */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <MobilityWidget />
-              <SocialWidget />
-            </motion.div>
-          </div>
+                {/* Bottom Row - Mobility & Social */}
+                <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <MobilityWidget />
+                  <SocialWidget />
+                </motion.div>
+              </div>
 
-          {/* Right Column - AI Twin Panel & Smart Pod Booking */}
-          <motion.div variants={itemVariants} className="lg:col-span-4 space-y-6">
-            <AITwinPanel />
-            <SmartPodBookingWidget onBookPod={handlePodBookingClick} />
-          </motion.div>
+              {/* Right Column - AI Twin Panel & Smart Pod Booking */}
+              <motion.div variants={itemVariants} className="lg:col-span-4 space-y-6">
+                <AITwinPanel />
+                <SmartPodBookingWidget onBookPod={handlePodBookingClick} />
+              </motion.div>
+            </>
+          ) : (
+            <>
+              {/* Social Hub Layout */}
+              <div className="lg:col-span-8 space-y-6">
+                {/* Social Widget - Full Width */}
+                <motion.div variants={itemVariants}>
+                  <SocialWidget />
+                </motion.div>
+                
+                {/* Additional Social Features */}
+                <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CyberCard glow="accent" className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 rounded-lg bg-accent/20">
+                        <MessageCircle className="w-5 h-5 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Live Chat</h4>
+                        <p className="text-sm text-muted-foreground">Connect with citizens</p>
+                      </div>
+                    </div>
+                    <Button className="w-full" variant="outline">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Start Chat
+                    </Button>
+                  </CyberCard>
+                  
+                  <CyberCard glow="primary" className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 rounded-lg bg-primary/20">
+                        <Calendar className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Create Event</h4>
+                        <p className="text-sm text-muted-foreground">Host your own gathering</p>
+                      </div>
+                    </div>
+                    <Button className="w-full" variant="outline">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Create Event
+                    </Button>
+                  </CyberCard>
+                </motion.div>
+              </div>
+
+              {/* Right Column - Social Stats & AI Twin */}
+              <motion.div variants={itemVariants} className="lg:col-span-4 space-y-6">
+                <AITwinPanel />
+                
+                {/* Social Stats Card */}
+                <CyberCard glow="secondary" className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-secondary/20">
+                      <Users className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Community Stats</h4>
+                      <p className="text-sm text-muted-foreground">Your social footprint</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Friends</span>
+                      <span className="font-mono font-bold text-secondary">24</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Events Attended</span>
+                      <span className="font-mono font-bold text-accent">12</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Messages Sent</span>
+                      <span className="font-mono font-bold text-primary">156</span>
+                    </div>
+                  </div>
+                </CyberCard>
+              </motion.div>
+            </>
+          )}
         </div>
 
         {/* Quick Actions Footer */}
@@ -265,50 +415,97 @@ export const Dashboard = () => {
           className="mt-8 p-6 bg-gradient-surface rounded-lg border border-border/50"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold">Quick Actions</h3>
+            <h3 className="font-semibold">
+              {isSocialRoute ? 'Social Actions' : 'Quick Actions'}
+            </h3>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-              <span className="text-xs text-muted-foreground">All systems operational</span>
+              <span className="text-xs text-muted-foreground">
+                {isSocialRoute ? 'Social systems active' : 'All systems operational'}
+              </span>
             </div>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex-col gap-2"
-              onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_blank')}
-            >
-              <Map className="w-6 h-6" />
-              <span className="text-sm">Explore City</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex-col gap-2"
-              onClick={handleSocialHubClick}
-            >
-              <Users className="w-6 h-6" />
-              <span className="text-sm">Social Hub</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex-col gap-2 glow-primary"
-              onClick={handlePodBookingClick}
-            >
-              <Zap className="w-6 h-6" />
-              <span className="text-sm">Book a Pod</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex-col gap-2 glow-secondary"
-              onClick={handleTeleportClick}
-            >
-              <Globe className="w-6 h-6" />
-              <span className="text-sm">Global Teleport</span>
-            </Button>
-            <Button variant="outline" className="h-auto p-4 flex-col gap-2">
-              <Bot className="w-6 h-6" />
-              <span className="text-sm">AI Settings</span>
-            </Button>
+            {!isSocialRoute ? (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                  onClick={() => window.open('https://symbiotic-cityscape.lovable.app/', '_self')}
+                >
+                  <Map className="w-6 h-6" />
+                  <span className="text-sm">Explore City</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                  onClick={handleSocialHubClick}
+                >
+                  <Users className="w-6 h-6" />
+                  <span className="text-sm">Social Hub</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2 glow-primary"
+                  onClick={handlePodBookingClick}
+                >
+                  <Zap className="w-6 h-6" />
+                  <span className="text-sm">Book a Pod</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2 glow-secondary"
+                  onClick={handleTeleportClick}
+                >
+                  <Globe className="w-6 h-6" />
+                  <span className="text-sm">Global Teleport</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex-col gap-2">
+                  <Bot className="w-6 h-6" />
+                  <span className="text-sm">AI Settings</span>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2 glow-secondary"
+                >
+                  <Users className="w-6 h-6" />
+                  <span className="text-sm">Find Friends</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                >
+                  <Calendar className="w-6 h-6" />
+                  <span className="text-sm">Browse Events</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2 glow-primary"
+                >
+                  <MessageCircle className="w-6 h-6" />
+                  <span className="text-sm">Group Chat</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                >
+                  <Sparkles className="w-6 h-6" />
+                  <span className="text-sm">AI Match</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex-col gap-2"
+                  onClick={() => navigate('/')}
+                >
+                  <Bot className="w-6 h-6" />
+                  <span className="text-sm">Back Home</span>
+                </Button>
+              </>
+            )}
           </div>
         </motion.div>
       </motion.main>
