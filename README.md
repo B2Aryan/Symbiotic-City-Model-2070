@@ -7,7 +7,7 @@ A futuristic 3D interactive smart city showcasing AI-powered urban living with d
 
 ## 🚀 Live Demo
 
-[View Live Demo](https://yourusername.github.io/Symbiotic-City-Model-2070)
+[View Live Demo](https://symbiotic-city-model-2070-1w7x.vercel.app/)
 
 ## 📖 Overview
 
@@ -137,4 +137,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your Name - [@yourusername](https://twitter.com/yourusername)
 
-Project Link: [https://github.com/yourusername/Symbiotic-City-Model-2070](https://github.com/yourusername/Symbiotic-City-Model-2070)
+Project Link: [https://github.com/yourusername/Symbiotic-City-Model-2070](https://symbiotic-city-model-2070-1w7x.vercel.app/)
