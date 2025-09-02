@@ -91,7 +91,7 @@ export const Dashboard = () => {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="border-b border-border/50 bg-gradient-surface backdrop-blur-xl sticky top-0 z-50"
+        className="border-b border-border/50 bg-gradient-surface backdrop-blur-xl sticky top-0 z-50 dark:bg-gradient-surface dark:border-border/50"
       >
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -124,7 +124,7 @@ export const Dashboard = () => {
               )}
               
               <div 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border/50 cursor-pointer hover:bg-accent/10 transition-colors"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border/50 cursor-pointer hover:bg-accent/10 transition-colors dark:bg-card dark:border-border/50 dark:hover:bg-accent/10"
                 onClick={() => window.open('https://preview--genz-digital-vibe-23.lovable.app/', '_self')}
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-secondary flex items-center justify-center text-sm">
@@ -145,7 +145,11 @@ export const Dashboard = () => {
                 City View
               </Button>
               
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/settings')}
+              >
                 <Settings className="w-4 h-4" />
               </Button>
             </div>
@@ -163,11 +167,11 @@ export const Dashboard = () => {
         {/* Hero Section with Digital Avatar */}
         {!isSocialRoute ? (
           <motion.div variants={itemVariants} className="mb-12">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12 dark:bg-gradient-surface dark:border-border/50">
               {/* Background Effects */}
-              <div className="absolute inset-0 bg-gradient-glow opacity-30" />
-              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-glow opacity-30 dark:opacity-30" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl dark:opacity-10" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl dark:opacity-10" />
               
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 {/* Left Side - Text Content */}
@@ -256,11 +260,11 @@ export const Dashboard = () => {
         ) : (
           /* Social Hub Hero Section */
           <motion.div variants={itemVariants} className="mb-12">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-surface border border-border/50 p-8 lg:p-12 dark:bg-gradient-surface dark:border-border/50">
               {/* Background Effects */}
-              <div className="absolute inset-0 bg-gradient-glow opacity-30" />
-              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-accent opacity-10 rounded-full blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-glow opacity-30 dark:opacity-30" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl dark:opacity-10" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-accent opacity-10 rounded-full blur-3xl dark:opacity-10" />
               
               <div className="relative z-10 text-center space-y-6">
                 <motion.div

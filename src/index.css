@@ -83,11 +83,20 @@
   
   /* Light mode (minimal for cyberpunk theme) */
   .light {
-    --background: 210 30% 98%;
-    --foreground: 220 15% 8%;
-    --card: 210 30% 95%;
-    --muted: 210 30% 90%;
-    --border: 210 30% 85%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 11%;
+    --card: 0 0% 97%;
+    --card-foreground: 0 0% 11%;
+    --card-glow: 0 0% 95%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 200 100% 60%;
+    --popover: 0 0% 97%;
+    --popover-foreground: 0 0% 11%;
+    --glass-bg: 0 0% 97%;
+    --glass-border: 0 0% 85%;
   }
 }
 
@@ -97,12 +106,20 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
     background-image: 
       radial-gradient(circle at 20% 80%, hsl(200 100% 60% / 0.1) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, hsl(270 80% 60% / 0.1) 0%, transparent 50%),
       radial-gradient(circle at 40% 40%, hsl(140 100% 60% / 0.05) 0%, transparent 50%);
     background-attachment: fixed;
+  }
+
+  /* Light mode body background */
+  .light body {
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(200 100% 60% / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(270 80% 60% / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, hsl(140 100% 60% / 0.02) 0%, transparent 50%);
   }
 
   /* Custom Scrollbar */
@@ -131,6 +148,13 @@
     border: 1px solid hsl(var(--glass-border) / 0.3);
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-elevation);
+  }
+
+  /* Light mode glass card adjustments */
+  .light .glass-card {
+    background: hsl(var(--glass-bg) / 0.95);
+    border: 1px solid hsl(var(--glass-border) / 0.5);
+    box-shadow: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
   }
   
   /* Neon Glow Effects */
@@ -230,14 +254,31 @@
   }
   
   @keyframes border-rotate {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Light Mode Enhancements */
+  .light .bg-gradient-surface {
+    background: linear-gradient(135deg, hsl(0 0% 98%), hsl(0 0% 95%));
+  }
+  
+  .light .border-border\/50 {
+    border-color: hsl(0 0% 85% / 0.5);
+  }
+  
+  .light .hover\:bg-accent\/10:hover {
+    background-color: hsl(140 100% 60% / 0.1);
+  }
+  
+  .light .hover\:border-primary\/50:hover {
+    border-color: hsl(200 100% 60% / 0.5);
+  }
+  
+  /* Smooth transitions for all elements */
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
   }
 }
