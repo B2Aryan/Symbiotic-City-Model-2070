@@ -125,7 +125,7 @@ export const Dashboard = () => {
               
               <div 
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border/50 cursor-pointer hover:bg-accent/10 transition-colors"
-                onClick={() => window.open('https://preview--genz-digital-vibe.lovable.app/', '_self')}
+                onClick={() => window.open('https://preview--genz-digital-vibe-23.lovable.app/', '_self')}
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-secondary flex items-center justify-center text-sm">
                   🤖

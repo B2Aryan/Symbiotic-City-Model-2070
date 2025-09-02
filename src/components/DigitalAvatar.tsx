@@ -100,7 +100,7 @@ export const DigitalAvatar = () => {
     
     // Redirect to Gen Z Digital Vibe website after a short delay
     setTimeout(() => {
-      window.open('https://preview--genz-digital-vibe.lovable.app/', '_self');
+      window.open('https://preview--genz-digital-vibe-23.lovable.app/', '_self');
     }, 1000);
     
     setTimeout(() => {
@@ -283,7 +283,7 @@ export const DigitalAvatar = () => {
         </h3>
         <p 
           className="text-xs text-muted-foreground flex items-center justify-center gap-1 cursor-pointer hover:text-primary transition-colors"
-          onClick={() => window.open('https://preview--genz-digital-vibe.lovable.app/', '_self')}
+          onClick={() => window.open('https://preview--genz-digital-vibe-23.lovable.app/', '_self')}
         >
           <motion.div
             className="w-2 h-2 rounded-full bg-success"
